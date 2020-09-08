@@ -1,0 +1,22 @@
+{
+	"name": "cribbage",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "mocha -r ts-node/register src/**/*.spec.ts"
+	},
+	"author": "Robert White",
+	"license": "ISC",
+	"dependencies": {},
+	"devDependencies": {
+		"@types/chai": "^4.2.12",
+		"@types/mocha": "^8.0.3",
+		"chai": "^4.2.0",
+		"mocha": "^8.1.3",
+		"nyc": "^15.1.0",
+		"ts-node": "^9.0.0",
+		"tslint": "^6.1.3",
+		"typescript": "^4.0.2"
+	}
+}
