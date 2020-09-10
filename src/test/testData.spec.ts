@@ -1,7 +1,7 @@
-import { Card } from '../card';
+import { Card } from '../classes/card';
 import { Rank } from '../enum/rank.enum';
 import { Suit } from '../enum/suit.enum';
-import { ScoringHand } from '../scoringHand';
+import { ScoringHand } from '../classes/scoringHand';
 
 export interface CardHand {
     hand: ScoringHand;

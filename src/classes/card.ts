@@ -1,5 +1,5 @@
-import { Rank } from './enum/rank.enum';
-import { Suit } from './enum/suit.enum';
+import { Rank } from '../enum/rank.enum';
+import { Suit } from '../enum/suit.enum';
 
 export class Card {
     public rank: Rank;

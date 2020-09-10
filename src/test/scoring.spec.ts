@@ -2,36 +2,36 @@ import 'mocha';
 import { expect } from 'chai';
 
 import { TestHands } from './testData.spec';
-import { getCombosBySize } from '../utility';
+import { getCombosBySize } from '../utility/utility';
 
 TestHands.forEach((scoringTest) => {
     describe('Scoring: ' + scoringTest.hand.getHandDescription(), () => {
         it(scoringTest.pairDescription, () => {
-            expect(scoringTest.hand.scorePairs()).to.equal(scoringTest.pairScore);
+            expect(scoringTest.hand.pairsScore).to.equal(scoringTest.pairScore);
         });
 
         it(scoringTest.nobsDescription, () => {
-            expect(scoringTest.hand.scoreNobs()).to.equal(scoringTest.nobsScore);
+            expect(scoringTest.hand.nobsScore).to.equal(scoringTest.nobsScore);
         });
 
         it(scoringTest.fifteensDescription, () => {
-            expect(scoringTest.hand.scoreFifteens()).to.equal(scoringTest.fifteensScore);
+            expect(scoringTest.hand.fifteensScore).to.equal(scoringTest.fifteensScore);
         });
 
         it(scoringTest.runsDescription, () => {
-            expect(scoringTest.hand.scoreRuns()).to.equal(scoringTest.runsScore);
+            expect(scoringTest.hand.runsScore).to.equal(scoringTest.runsScore);
         });
 
         it(scoringTest.flushDescription, () => {
-            expect(scoringTest.hand.scoreFlush()).to.equal(scoringTest.flushScore);
+            expect(scoringTest.hand.flushScore).to.equal(scoringTest.flushScore);
         });
 
         it(`should return ${scoringTest.totalScore} for total score`, () => {
-            expect(scoringTest.hand.scoreTotal()).to.equal(scoringTest.totalScore);
+            expect(scoringTest.hand.totalScore).to.equal(scoringTest.totalScore);
         });
 
         it(`should return ${scoringTest.totalHandValue} for total hand value`, () => {
-            expect(scoringTest.hand.totalRank()).to.equal(scoringTest.totalHandValue);
+            expect(scoringTest.hand.totalRank).to.equal(scoringTest.totalHandValue);
         });
     });
 });

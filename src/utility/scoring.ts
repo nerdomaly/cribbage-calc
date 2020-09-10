@@ -1,5 +1,5 @@
-import { Card } from './card';
-import { Rank } from './enum/rank.enum';
+import { Card } from '../classes/card';
+import { Rank } from '../enum/rank.enum';
 import { getCombosBySize } from './utility';
 
 import * as _ from 'lodash';
