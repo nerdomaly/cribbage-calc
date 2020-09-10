@@ -1,5 +1,3 @@
-import { Card } from './interface/card.interface';
-
 /**
  * @param {*[]} comboOptions
  * @param {number} comboLength

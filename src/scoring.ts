@@ -1,9 +1,9 @@
-import { Card, getHandDescription, getCardDescription } from './interface/card.interface';
-import { Suit } from './enum/suit.enum';
+import { Card } from './card';
 import { Rank } from './enum/rank.enum';
 import { getCombosBySize } from './utility';
 
 import * as _ from 'lodash';
+import { forEach } from 'lodash';
 
 export function scorePairs(passedHand: Array<Card>): number {
     const hand = [...passedHand];
@@ -33,7 +33,7 @@ export function scoreFifteens(hand: Array<Card>): number {
         const permutations = getCombosBySize(hand, setSize);
 
         permutations.forEach((perm) => {
-            if (totalHandValue(perm) === 15) {
+            if (totalRank(perm) === 15) {
                 score += 2;
             }
         });
@@ -85,15 +85,24 @@ export function scoreRuns(hand: Array<Card>): number {
     }
 }
 
-export function scoreTotal(hand: Array<Card>): number {
-    return scoreNobs(hand) + scorePairs(hand) + scoreFifteens(hand) + scoreRuns(hand);
+// TODO: Implement Flush Scoring
+export function scoreFlush(cutCard: Card, hand: Array<Card>): number {
+    const handFlush = _.every(hand, (card) => card.suit === hand[0].suit);
+
+    if (handFlush) {
+        if (cutCard.suit === hand[0].suit) {
+            return 5;
+        } else {
+            return 4;
+        }
+    }
+
+    return 0;
 }
 
-export function scoreNobs(hand: Array<Card>): number {
-    const cutCard = hand[0];
-
-    for (let i = 1; i < hand.length; i++) {
-        if (hand[i].rank === Rank.Jack && hand[i].suit === cutCard.suit) {
+export function scoreNobs(cutCard: Card, hand: Array<Card>): number {
+    for (const card of hand) {
+        if (card.rank === Rank.Jack && card.suit === cutCard.suit) {
             return 1;
         }
     }
@@ -101,6 +110,6 @@ export function scoreNobs(hand: Array<Card>): number {
     return 0;
 }
 
-export function totalHandValue(hand: Array<Card>): number {
+export function totalRank(hand: Array<Card>): number {
     return hand.reduce((a, b) => a + (b.rank.value || 0), 0);
 }
