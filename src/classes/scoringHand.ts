@@ -38,7 +38,7 @@ export class ScoringHand {
         let retVal = '';
 
         retVal += this.cutCard.getCardDescription();
-        retVal += ' and hand ';
+        retVal += ' as the cut card and a hand of ';
         retVal += this.handCards.map((card) => card.getCardDescription());
 
         return retVal;
