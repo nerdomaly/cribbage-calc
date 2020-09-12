@@ -8,42 +8,11 @@ import figlet = require('figlet');
 import path = require('path');
 import program = require('commander');
 
-import { Card } from './classes/card';
-import { Rank } from './enum/rank.enum';
-import { Suit } from './enum/suit.enum';
 import { getCombosBySize } from './utility/utility';
 import { HandPermutation } from './classes/handPermutation';
 
 import * as _ from 'lodash';
-
-function cardArray(value, dummyPrevious) {
-    const cardsText = value.split(',');
-    const retVal: Array<Card> = [];
-
-    if (cardsText.length !== 6) {
-        console.log(chalk.red('You must specify six cards.'));
-        process.exit();
-    }
-
-    for (const cardText of cardsText) {
-        if (cardText.length !== 2) {
-            console.log(chalk.red('Cards must only be two characters.'));
-            process.exit();
-        }
-
-        const rank = Rank.getByShorthand(cardText[0]);
-        const suit = Suit.getByShorthand(cardText[1]);
-
-        if (!rank || !suit) {
-            console.log(chalk.red(`${cardText} is an unrecognized card.`));
-            process.exit();
-        }
-
-        retVal.push(new Card(rank, suit));
-    }
-
-    return retVal;
-}
+import { cardArrayOption, permutationOption } from './command-options';
 
 export function main() {
     clear();
@@ -51,7 +20,9 @@ export function main() {
 
     program
         .version('0.0.1')
-        .requiredOption('-c, --cards [cards]', 'Comma seperated list of cards.', cardArray)
+        .requiredOption('-c, --cards [cards]', 'Comma seperated list of cards.', cardArrayOption)
+        .option('-p, --permutations <number>', 'Number of permutations from 1-15', permutationOption, '5')
+        .option('-sh, --show-best-hands', 'Display a list of best hands per permutation.')
         .parse(process.argv);
 
     const dealtCards = program['cards'];
@@ -61,7 +32,7 @@ export function main() {
     const permutations = getCombosBySize(dealtCards, 4);
 
     console.log('\n');
-    console.log(`Checking ${permutations.length} number of permutaions...`);
+    console.log(`Checking ${program['permutations']} number of permutaions...`);
     console.log('\n');
 
     const handPermutations = _.sortBy(
@@ -69,14 +40,22 @@ export function main() {
         'meanScore'
     ).reverse();
 
+    let permutation = 0;
     // check for one right now to see if the logic works.
     for (const handPermutation of handPermutations) {
+        permutation++;
+
+        if (permutation > program['permutations']) {
+            break;
+        }
         console.log(chalk.blue(`Using permutation: ${handPermutation.getDescription()}`));
 
-        console.log(chalk.green(`Top 5 hands:`));
-        handPermutation.topFiveHands.forEach((element) => {
-            console.log(`${element.getHandDescription()} scores ${element.totalScore}`);
-        });
+        if (program['show-best-hands']) {
+            console.log(chalk.green(`Top 5 hands:`));
+            handPermutation.topFiveHands.forEach((element) => {
+                console.log(`${element.getHandDescription()} scores ${element.totalScore}`);
+            });
+        }
 
         console.log(chalk.green(`Mean hand score: ${handPermutation.meanScore}`));
         console.log(chalk.green(`Standard score deviation: ${handPermutation.scoreDeviation}`));
