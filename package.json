@@ -1,19 +1,20 @@
 {
     "name": "cribbage",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "",
     "main": "./lib/index.js",
     "bin": {
-        "pizza": "./lib/index.js"
+        "crib-calc": "./lib/index.js"
     },
     "scripts": {
         "test": "mocha -r ts-node/register src/**/*.spec.ts",
         "test:watch": "mocha -w -r ts-node/register src/**/*.spec.ts",
         "coverage": "nyc npm run test",
-        "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+        "start": "ts-node src/index.ts",
+        "start:defaults": "ts-node src/index.ts --cards=6d,9s,4h,4c,3d,7d",
+        "start:watch": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts --cards=6d,9s,4h,4c,3d,7d",
         "create": "npm run build && npm run test",
         "build": "tsc -p .",
-        "local": "sudo npm i -g && pizza",
         "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
     },
     "author": "Robert White",

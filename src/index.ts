@@ -16,18 +16,45 @@ import { HandPermutation } from './classes/handPermutation';
 
 import * as _ from 'lodash';
 
+function cardArray(value, dummyPrevious) {
+    const cardsText = value.split(',');
+    const retVal: Array<Card> = [];
+
+    if (cardsText.length !== 6) {
+        console.log(chalk.red('You must specify six cards.'));
+        process.exit();
+    }
+
+    for (const cardText of cardsText) {
+        if (cardText.length !== 2) {
+            console.log(chalk.red('Cards must only be two characters.'));
+            process.exit();
+        }
+
+        const rank = Rank.getByShorthand(cardText[0]);
+        const suit = Suit.getByShorthand(cardText[1]);
+
+        if (!rank || !suit) {
+            console.log(chalk.red(`${cardText} is an unrecognized card.`));
+            process.exit();
+        }
+
+        retVal.push(new Card(rank, suit));
+    }
+
+    return retVal;
+}
+
 export function main() {
     clear();
-    console.log(chalk.red(figlet.textSync('cribbage-calc', { horizontalLayout: 'full' })));
+    console.log(chalk.red(figlet.textSync('crib-calc', { horizontalLayout: 'full' })));
 
-    const dealtCards: Array<Card> = [
-        new Card(Rank.Six, Suit.Diamonds),
-        new Card(Rank.Nine, Suit.Spades),
-        new Card(Rank.Four, Suit.Hearts),
-        new Card(Rank.Four, Suit.Clubs),
-        new Card(Rank.Three, Suit.Diamonds),
-        new Card(Rank.Seven, Suit.Diamonds),
-    ];
+    program
+        .version('0.0.1')
+        .requiredOption('-c, --cards [cards]', 'Comma seperated list of cards.', cardArray)
+        .parse(process.argv);
+
+    const dealtCards = program['cards'];
 
     console.log(chalk.magentaBright(`Cards dealt to the user: ${dealtCards.map((card) => card.getCardDescription())}`));
 
