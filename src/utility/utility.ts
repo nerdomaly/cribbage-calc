@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 /**
  * @param {*[]} comboOptions
  * @param {number} comboLength

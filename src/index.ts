@@ -9,7 +9,7 @@ import path = require('path');
 import program = require('commander');
 
 import { getCombosBySize } from './utility/utility';
-import { HandPermutation } from './classes/handPermutation';
+import { HandPermutation } from './class/handPermutation';
 
 import * as _ from 'lodash';
 import { cardArrayOption, permutationOption } from './command-options';

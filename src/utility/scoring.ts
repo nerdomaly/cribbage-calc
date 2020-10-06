@@ -1,10 +1,8 @@
-import { Card } from '../classes/card';
+import { Card } from '../class/card';
 import { Rank } from '../enum/rank.enum';
 import { getCombosBySize } from './utility';
 
 import * as _ from 'lodash';
-import { forEach } from 'lodash';
-import { ScoringHand } from '../classes/scoringHand';
 
 export function scorePairs(passedHand: Array<Card>): number {
     const hand = [...passedHand];

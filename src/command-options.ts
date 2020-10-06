@@ -3,7 +3,7 @@ import chalk = require('chalk');
 
 import { Rank } from './enum/rank.enum';
 import { Suit } from './enum/suit.enum';
-import { Card } from './classes/card';
+import { Card } from './class/card';
 
 export function cardArrayOption(value, dummyPrevious) {
     const cardsText = value.split(',');

@@ -13,6 +13,7 @@
         "start": "ts-node src/index.ts",
         "start:defaults": "ts-node src/index.ts --cards=6d,9s,4h,4c,3d,7d",
         "start:watch": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts --cards=6d,9s,4h,4c,3d,7d",
+        "start:export": "ts-node src/export-crib-hands.ts",
         "create": "npm run build && npm run test",
         "build": "tsc -p .",
         "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
